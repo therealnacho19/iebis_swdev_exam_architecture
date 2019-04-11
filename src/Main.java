@@ -1,4 +1,10 @@
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Observer;
+import java.util.Observable;
+
+import static jdk.internal.jline.console.internal.ConsoleRunner.property;
 
 /**
  * Try to modify this class only where is mentioned
@@ -9,7 +15,7 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        User angelica = new User("Angelica", "", 23, "", "", "", User.Gender.Female);
+        User angelica = new User("Angelica", "", 23, "", "", "");
 
         Show gameThrones = new Show("Game of Thrones"); // The argument is the name of the TV Show
         Season gtSeason1 = new Season(1); // The argument is the number of the season
@@ -21,11 +27,27 @@ public class Main {
         // Implement here the code to make Angelica subscribes to Game of Thrones because is her favourite TV Show
         // Add your code here
 
+        abstract class Subject {
+
+            //methods to register and unregister observers
+            public abstract void register(Observer obj);
+            public abstract void unregister(Observer obj);
+
+            //method to notify observers of change
+            public abstract void notifyObservers();
+
+            //method to get updates from subject
+            public abstract Object getUpdate(Observer obj);
+
+        }
+
 
         // -----------------------
 
 
         // New episode in season1
+
+
         Episode episodeExtra = new Episode(3000, "The making of Season 1"); // 3000 -> length of the episode in seconds(int), and Title of the episode
         gtSeason1.addEpisode(episodeExtra);
 
